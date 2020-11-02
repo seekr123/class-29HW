@@ -1,7 +1,7 @@
 const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
-const Constraint=Matter.bodies;
+const Constraint=Matter.Constraint;
 
 var ground,ground1,ground2;
 var box1,box2,box3,box5,box6,box7,box8,box9,box10,box11,box12,box13,box14,box15,box16,box17,box18,box19,box20,box21,box22,box23,box24,box25;
@@ -14,6 +14,7 @@ function setup() {
   world = engine.world;
 
   polygon=Bodies.circle(100,200,20);
+  Matter.Body.setMass(polygon,polygon.mass*15)
   World.add(world,polygon);
 
   
@@ -51,7 +52,7 @@ function setup() {
   box20=new Box(420,155,30,40);
   box21=new Box(390,115,30,40);
 
-  sling= new SlingShot(polygon.body,{x:147,y:380});
+  sling= new SlingShot(polygon,{x:175,y:150});
  
 
 }
@@ -89,9 +90,15 @@ function draw() {
   box24.display();
   box25.display();
 
-  fill ('yellow');
-  ellipse(polygon.position.x,polygon.position.y,40,40);
-  console.log(polygon);
+  sling.display();
+
+
+
+
+  fill ('yellow')
+  ellipseMode(CENTER)
+  ellipse(polygon.position.x,polygon.position.y,30,30);
+  
 
 
   Engine.update(engine);
@@ -100,10 +107,10 @@ function draw() {
 }
 
 function mouseDragged(){
-  Matter.Body.setPosition(polygon.body, {x: mouseX , y: mouseY});
+  Matter.Body.setPosition(polygon, {x: mouseX , y: mouseY});
 }
 
 
 function mouseReleased(){
-  rope.fly();
+  sling.fly();
 }
